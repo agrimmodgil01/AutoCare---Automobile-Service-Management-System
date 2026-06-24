@@ -14,32 +14,6 @@ A simple browser-based Auto Service Management System built with HTML, CSS, and 
 - Left-side navigation that switches between Registration, User Vehicle Lookup, and Service Records
 - Data saved in browser `localStorage`
 
-## Project Files
-
-```text
-auto-service-management-system/
-  index.html
-  styles.css
-  script.js
-  README.md
-```
-
-## How To Run
-
-Open `index.html` in a web browser.
-
-Project path:
-
-```text
-C:\Users\agrim\Documents\Codex\2026-06-24\bui\outputs\auto-service-management-system
-```
-
-Main file:
-
-```text
-C:\Users\agrim\Documents\Codex\2026-06-24\bui\outputs\auto-service-management-system\index.html
-```
-
 ## How To Use
 
 1. Open the app in your browser.
