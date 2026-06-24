@@ -1,6 +1,6 @@
 # Auto Service Management System
 
-A simple browser-based Auto Service Management System built with HTML, CSS, and JavaScript. The app lets a workshop register customers, register their vehicles, add diagnosis/service details, and look up a customer's linked vehicle records by name.
+A browser-based Auto Service Management System built with HTML, CSS, and JavaScript. The app lets a workshop register customers, register their vehicles, add diagnosis/service details, and look up a customer's linked vehicle records by name.
 
 ## Features
 
