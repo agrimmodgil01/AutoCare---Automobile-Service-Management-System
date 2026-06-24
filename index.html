@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auto Service Management System</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-mark">A</span>
+        <div>
+          <h1>AutoCare</h1>
+          <p>Service Manager</p>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="#registration" class="active" data-page-link="registration">Registration</a>
+        <a href="#lookup" data-page-link="lookup">User Vehicle Lookup</a>
+        <a href="#records" data-page-link="records">Service Records</a>
+      </nav>
+
+      <div class="stats">
+        <div>
+          <span id="userCount">0</span>
+          <small>Users</small>
+        </div>
+        <div>
+          <span id="vehicleCount">0</span>
+          <small>Vehicles</small>
+        </div>
+      </div>
+    </aside>
+
+    <main class="content">
+      <section class="topbar">
+        <div>
+          <p class="eyebrow">Workshop dashboard</p>
+          <h2>Auto Service Management System</h2>
+        </div>
+      </section>
+
+      <section class="panel page active-page" id="registration" data-page="registration">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Register together</p>
+            <h3>User, vehicle, and diagnosis</h3>
+          </div>
+          <button class="ghost-btn" id="clearFormBtn" type="button">Clear Form</button>
+        </div>
+
+        <form id="registrationForm" class="form-grid">
+          <input type="hidden" id="recordId">
+
+          <fieldset>
+            <legend>User Registration</legend>
+            <label>
+              Full Name
+              <input id="userName" name="userName" type="text" placeholder="Example: Riya Sharma" required>
+            </label>
+            <label>
+              Phone
+              <input id="phone" name="phone" type="tel" placeholder="9876543210" required>
+            </label>
+            <label>
+              Email
+              <input id="email" name="email" type="email" placeholder="riya@example.com">
+            </label>
+            <label>
+              Address
+              <textarea id="address" name="address" rows="3" placeholder="Customer address"></textarea>
+            </label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Vehicle Registration</legend>
+            <label>
+              Vehicle Number
+              <input id="vehicleNumber" name="vehicleNumber" type="text" placeholder="DL 01 AB 1234" required>
+            </label>
+            <label>
+              Make / Company
+              <input id="make" name="make" type="text" placeholder="Honda, Tata, Hyundai" required>
+            </label>
+            <label>
+              Model
+              <input id="model" name="model" type="text" placeholder="City, Nexon, i20" required>
+            </label>
+            <label>
+              Year
+              <input id="year" name="year" type="number" min="1980" max="2035" placeholder="2022">
+            </label>
+            <label>
+              Fuel Type
+              <select id="fuelType" name="fuelType">
+                <option>Petrol</option>
+                <option>Diesel</option>
+                <option>CNG</option>
+                <option>Electric</option>
+                <option>Hybrid</option>
+              </select>
+            </label>
+            <label>
+              Odometer Reading
+              <input id="odometer" name="odometer" type="number" min="0" placeholder="42000">
+            </label>
+          </fieldset>
+
+          <fieldset class="diagnosis-fieldset">
+            <legend>Diagnosis & Service Details</legend>
+            <label>
+              Diagnosis
+              <textarea id="diagnosis" name="diagnosis" rows="4" placeholder="Engine noise, brake issue, AC cooling problem..." required></textarea>
+            </label>
+            <label>
+              Service Status
+              <select id="status" name="status">
+                <option>Pending Diagnosis</option>
+                <option>In Service</option>
+                <option>Waiting for Parts</option>
+                <option>Ready for Delivery</option>
+                <option>Delivered</option>
+              </select>
+            </label>
+            <label>
+              Estimated Cost
+              <input id="estimatedCost" name="estimatedCost" type="number" min="0" placeholder="3500">
+            </label>
+            <label>
+              Service Date
+              <input id="serviceDate" name="serviceDate" type="date">
+            </label>
+          </fieldset>
+
+          <div class="form-actions">
+            <button class="primary-btn" id="submitBtn" type="submit">Register User & Vehicle</button>
+            <p id="formMessage" class="message" role="status"></p>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel page" id="lookup" data-page="lookup">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Linked lookup</p>
+            <h3>Find vehicles by user name</h3>
+          </div>
+        </div>
+        <div class="lookup-row">
+          <input id="searchName" type="search" placeholder="Enter user name">
+          <button class="primary-btn" id="searchBtn" type="button">Search</button>
+        </div>
+        <div id="lookupResults" class="lookup-results empty-state">
+          Enter a registered user name to view linked vehicle and diagnosis details.
+        </div>
+      </section>
+
+      <section class="panel page" id="records" data-page="records">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Workshop records</p>
+            <h3>Registered users and vehicles</h3>
+          </div>
+          <button class="danger-btn" id="clearAllBtn" type="button">Clear All</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Vehicle</th>
+                <th>Diagnosis</th>
+                <th>Status</th>
+                <th>Cost</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="recordsBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <template id="resultTemplate">
+    <article class="result-card">
+      <div class="result-header">
+        <div>
+          <p class="eyebrow">Customer</p>
+          <h4 data-field="userName"></h4>
+        </div>
+        <span data-field="status" class="status-pill"></span>
+      </div>
+      <dl class="details-grid">
+        <div><dt>Phone</dt><dd data-field="phone"></dd></div>
+        <div><dt>Email</dt><dd data-field="email"></dd></div>
+        <div><dt>Vehicle No.</dt><dd data-field="vehicleNumber"></dd></div>
+        <div><dt>Vehicle</dt><dd data-field="vehicleName"></dd></div>
+        <div><dt>Fuel</dt><dd data-field="fuelType"></dd></div>
+        <div><dt>Odometer</dt><dd data-field="odometer"></dd></div>
+        <div><dt>Diagnosis</dt><dd data-field="diagnosis"></dd></div>
+        <div><dt>Estimated Cost</dt><dd data-field="estimatedCost"></dd></div>
+      </dl>
+    </article>
+  </template>
+
+  <script src="script.js"></script>
+</body>
+</html>
